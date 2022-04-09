@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 #include <omp.h>
-
+#include <chrono>
 
 CComplexVector::CComplexVector(int dim, const string fileName){
         filename = fileName;
@@ -66,10 +66,20 @@ CComplexVector& CComplexVector::operator =(const CComplexVector &other){
 std::pair<int,int> operator *(CComplexVector &A, CComplexVector &B){
     if (A.n != B.n)exit(3);
     std::pair<int,int> retPair;
-    #pragma omp parallel for                                            // reduction(+: retPair.first,retPair.second)
+    int a = 0;
+    int b = 0;
+    auto begin = std::chrono::steady_clock::now();
+    #pragma omp parallel for reduction(+: a, b)
     for(int i=0;i<A.n; i++){
-        retPair.first += A.Get_Re(i)*B.Get_Re(i) - A.Get_Im(i)*B.Get_Im(i);
-        retPair.second += A.Get_Re(i)*B.Get_Im(i) + A.Get_Im(i)*B.Get_Re(i);
+        a += A.Get_Re(i)*B.Get_Re(i) - A.Get_Im(i)*B.Get_Im(i);
+        b += A.Get_Re(i)*B.Get_Im(i) + A.Get_Im(i)*B.Get_Re(i);
     }
+    auto end = std::chrono::steady_clock::now();
+    auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
+    std::cout << "The time of dot product: " << elapsed_ms.count() << " ms\n";
+    retPair.first = a;
+    retPair.second = b;
     return retPair;
 }
+
+

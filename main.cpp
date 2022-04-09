@@ -84,22 +84,25 @@ int main()
     }
 
 
-    CComplexVectorHori a(1000000,"a");
-    CComplexVectorHori b(1000000,"b");
+    CComplexVectorHori a(100000,"a");
+    CComplexVectorHori b(100000,"b");
 
-    for(int i=0;i<1000000;i++){
+    for(int i=0;i<100000;i++){
         a.Set_Re_Im(rand(),rand(),i);
     }
 
-    for(int i=0;i<1000000;i++){
+    for(int i=0;i<100000;i++){
         b.Set_Re_Im(rand(),rand(),i);
     }
 
-    auto begin = std::chrono::steady_clock::now();
+    //for(int i=0; i<1600; i++){
+    //    test5();
+    //}
+    //auto begin = std::chrono::steady_clock::now();
     pair<int,int> ret = a*b;
-    auto end = std::chrono::steady_clock::now();
-    auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-    std::cout << "The time of dot product: " << elapsed_ms.count() << " ms\n";
+   // auto end = std::chrono::steady_clock::now();
+    //auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
+   // std::cout << "The time of dot product: " << elapsed_ms.count() << " ms\n";
 
 
     //begin = std::chrono::steady_clock::now();

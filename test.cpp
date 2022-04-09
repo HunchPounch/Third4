@@ -98,17 +98,80 @@ int test2(){
     getline(fin,fileCheck_info2);
     delete v[0];
 	if(fileCheck_info1 == "5 + 6i" && fileCheck_info2 == "7 + 8i"){
-        cout << "test2 passed" << endl;
+        cout << "test2 passed" << endl << "Time in test3: ";
         return 0;
 	}
 	else {
-        cout << "test2 not passed" << endl;
+        cout << "test2 not passed" << endl << "Time in test3: ";
         return 1;
 	}
 }
 
+int test3(){
+
+CComplexVectorHori a(2,"a");
+CComplexVectorHori b(2,"b");
+a.Set_Re_Im(1,1,0);
+a.Set_Re_Im(1,1,1);
+b.Set_Re_Im(1,1,0);
+b.Set_Re_Im(1,1,1);
+CComplexVectorHori c = a + b;
+
+if(c.Get_Re(1) == 2 && c.Get_Re(1) == 2 && c.Get_Im(0) == 2 && c.Get_Im(1) == 2 ){
+        cout << "test4 passed" << endl << "Time in test4: ";
+        return 0;
+	}
+	else {
+        cout << "test4 not passed" << endl << "Time in test4: ";
+        return 1;
+	}
+
+}
+
+int test4(){
+
+CComplexVectorHori a(2,"a");
+CComplexVectorHori b(2,"b");
+a.Set_Re_Im(1,1,0);
+a.Set_Re_Im(1,1,1);
+b.Set_Re_Im(1,1,0);
+b.Set_Re_Im(1,1,1);
+CComplexVectorHori c = a - b;
+
+if(c.Get_Re(1) == 0 && c.Get_Re(1) == 0 && c.Get_Im(0) == 0 && c.Get_Im(1) == 0 ){
+        cout << "test4 passed" << endl << "Time in test5: ";
+        return 0;
+	}
+	else {
+        cout << "test4 not passed" << endl << "Time in test5: ";
+        return 1;
+	}
+
+}
+
+int test5(){
+
+CComplexVectorHori a(2,"a");
+CComplexVectorHori b(2,"b");
+a.Set_Re_Im(1,1,0);
+a.Set_Re_Im(1,1,1);
+b.Set_Re_Im(1,1,0);
+b.Set_Re_Im(1,1,1);
+pair<int,int> ret = a*b;
+
+if(ret.first == 0 && ret.second == 4){
+        cout << "test5 passed" << endl;
+        return 0;
+	}
+	else {
+        cout << "test5 not passed" << endl;
+        return 1;
+	}
+
+}
+
 int main_test(){
-    if(test1() + test2() == 0){
+    if(test1() + test2() + test3() + test4() + test5() == 0){
         return 0;
     }
     else return 1;
